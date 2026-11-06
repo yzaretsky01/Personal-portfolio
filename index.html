@@ -55,6 +55,7 @@
   .hero { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; align-items: start; }
   h1 { font: 600 44px/1.1 var(--serif); letter-spacing: -0.01em; margin: 0 0 18px; }
   .intro { font-size: 18px; }
+  .portrait { display: block; width: 200px; height: 200px; margin-top: 28px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
   .facts { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; font-size: 15px; }
   .facts dl { margin: 0; }
   .facts dt { font-weight: 600; font-size: 13px; color: var(--muted); margin-top: 14px; }
@@ -123,6 +124,7 @@
     main { padding-block: 48px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
     .hero, .entry { grid-template-columns: 1fr; }
     .hero { gap: 28px; }
+    .portrait { width: 160px; height: 160px; }
     .entry { gap: 8px; }
     .current, .phases { grid-template-columns: 1fr; }
     .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -141,6 +143,7 @@
     <div>
       <h1>Yehuda Zaretsky</h1>
       <p class="intro">I am a senior at South Eugene High School in Eugene, Oregon. My work centers on AI safety research, with additional work in AI policy, hardware and interactive education.</p>
+      <img class="portrait" src="yehuda.jpg" width="200" height="200" alt="Yehuda Zaretsky">
     </div>
     <aside class="facts">
       <dl>
