@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Infrastructure Equity Research · Yehuda Zaretsky</title>
+<meta name="description" content="Equity research on Micron, SanDisk and Palantir: three companies across the AI infrastructure stack.">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e3dc;
+    --accent: #2f5d50;
+    --chip: #efede6;
+    --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141414;
+      --text: #ececec;
+      --muted: #9a9a9a;
+      --line: #2a2a2a;
+      --accent: #8fc9b5;
+      --chip: #222;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141414;
+    --text: #ececec;
+    --muted: #9a9a9a;
+    --line: #2a2a2a;
+    --accent: #8fc9b5;
+    --chip: #222;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding-block: 48px 96px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  p { margin: 0 0 12px; }
+  .back { font-size: 15px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 28px 0 8px; letter-spacing: -0.015em; }
+  .meta { font-size: 15px; line-height: 1.5; color: var(--muted); margin-bottom: 8px; }
+  h2 { font-weight: 600; font-size: 20px; line-height: 1.3; margin: 52px 0 14px; }
+  h3 { font-size: 17px; margin: 0 0 4px; }
+  .co { padding: 16px 0; border-top: 1px solid var(--line); }
+  .co:last-of-type { border-bottom: 1px solid var(--line); }
+  .ticker { font-size: 14px; font-weight: 400; color: var(--muted); margin-left: 6px; }
+  .co ul { margin: 6px 0 0; padding-left: 18px; }
+  .co li { margin-bottom: 4px; }
+
+  .table-wrap { overflow-x: auto; margin: 0 0 22px; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; min-width: 460px; font-size: 15px; }
+  caption { text-align: left; font-weight: 600; font-size: 15px; padding-bottom: 8px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-weight: 600; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--text); }
+  td { font-variant-numeric: tabular-nums; }
+  .chg { color: var(--muted); font-size: 13px; }
+  .note { font-size: 14px; color: var(--muted); }
+
+  .story { margin-bottom: 18px; }
+  .story ul { margin: 4px 0 0; padding-left: 18px; }
+  .story li { margin-bottom: 4px; }
+
+  footer { margin-top: 64px; font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+  <a class="back" href="index.html">← Yehuda Zaretsky</a>
+
+  <h1>AI Infrastructure Equity Research</h1>
+  <div class="meta">Micron · SanDisk · Palantir</div>
+  <div class="meta">Yehuda Zaretsky · Student Analyst, Strategic Wealth Planning · data as of July 2026</div>
+
+  <h2>The companies</h2>
+
+  <section class="co">
+    <h3>Micron Technology <span class="ticker">MU</span></h3>
+    <ul>
+      <li>Designs and manufactures memory and storage chips, sold to companies that build them into finished products.</li>
+      <li>Two product lines: DRAM (short-term memory) and NAND flash (long-term storage).</li>
+      <li>Samsung, SK Hynix and Micron together hold 95% of the DRAM market.</li>
+    </ul>
+  </section>
+
+  <section class="co">
+    <h3>SanDisk <span class="ticker">SNDK</span></h3>
+    <ul>
+      <li>Sells NAND flash storage across three segments: enterprise and data center, client/OEM, and consumer retail.</li>
+      <li>NAND market share: Samsung 29%, SK Hynix 18%, Kioxia 14%, Micron 13%, SanDisk / Western Digital 13%, YMTC 13%.</li>
+    </ul>
+  </section>
+
+  <section class="co">
+    <h3>Palantir <span class="ticker">PLTR</span></h3>
+    <ul>
+      <li>Sells enterprise software platforms through subscriptions and contracts. The platforms integrate an organization's scattered data into one system, then add AI tools on top for analysis and decision-making.</li>
+      <li>Serves government and commercial customers.</li>
+    </ul>
+  </section>
+
+  <h2>Growth &amp; earnings</h2>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Revenue <span class="chg">(year-over-year growth)</span></caption>
+      <thead><tr><th></th><th>Micron</th><th>SanDisk</th><th>Palantir</th></tr></thead>
+      <tbody>
+        <tr><td>FY23</td><td>$15.54B</td><td>$6.09B</td><td>$2.23B</td></tr>
+        <tr><td>FY24</td><td>$25.11B <span class="chg">+61.6%</span></td><td>$6.66B <span class="chg">+9.5%</span></td><td>$2.87B <span class="chg">+28.8%</span></td></tr>
+        <tr><td>FY25</td><td>$37.4B <span class="chg">+48.9%</span></td><td>$7.3B <span class="chg">+10.4%</span></td><td>$4.5B <span class="chg">+56.2%</span></td></tr>
+        <tr><td>Avg. growth</td><td>55.2%</td><td>9.9%</td><td>41.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>GAAP net income</caption>
+      <thead><tr><th></th><th>Micron</th><th>SanDisk</th><th>Palantir</th></tr></thead>
+      <tbody>
+        <tr><td>FY23</td><td>−$5.83B</td><td>−$2.14B</td><td>$0.21B</td></tr>
+        <tr><td>FY24</td><td>$0.78B</td><td>−$0.67B</td><td>$0.46B</td></tr>
+        <tr><td>FY25</td><td>$8.54B</td><td>−$1.64B</td><td>$1.63B</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Margins vs. competitors</h2>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Memory</caption>
+      <thead><tr><th></th><th>Micron</th><th>SanDisk</th><th>SK Hynix</th></tr></thead>
+      <tbody>
+        <tr><td>Gross margin</td><td>84.6%</td><td>78.4%</td><td>68.3%</td></tr>
+        <tr><td>Operating margin</td><td>80%</td><td>41.6%</td><td>71.5%</td></tr>
+        <tr><td>Net profit margin</td><td>68.1%</td><td>34.19%</td><td>56.9%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Software</caption>
+      <thead><tr><th></th><th>Palantir</th><th>Snowflake <span class="chg">data</span></th><th>Leidos <span class="chg">gov.</span></th></tr></thead>
+      <tbody>
+        <tr><td>Gross margin</td><td>84.1%</td><td>67.15%</td><td>17.91%</td></tr>
+        <tr><td>Operating margin</td><td>46.3%</td><td>23.4%</td><td>11.5%</td></tr>
+        <tr><td>Net profit margin</td><td>53.3%</td><td>−28.43%</td><td>8.15%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Balance sheet</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>Micron</th><th>SanDisk</th><th>Palantir</th></tr></thead>
+      <tbody>
+        <tr><td>Total debt</td><td>$5.7B</td><td>$0.21B</td><td>$0.2B</td></tr>
+        <tr><td>Cash on hand</td><td>$26.02B</td><td>$3.73B</td><td>$8B</td></tr>
+        <tr><td>Debt / cash</td><td>0.22</td><td>0.056</td><td>0.025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Valuation</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>Micron</th><th>SanDisk</th><th>Palantir</th></tr></thead>
+      <tbody>
+        <tr><td>Trailing P/E</td><td>22.38</td><td>55.04</td><td>138.62</td></tr>
+        <tr><td>Forward P/E</td><td>6.39</td><td>25.06</td><td>178.57</td></tr>
+        <tr><td>Trailing EV/EBITDA</td><td>16x</td><td>38x</td><td>142x</td></tr>
+        <tr><td>Forward EV/EBITDA</td><td>44x</td><td>10x</td><td>64x</td></tr>
+        <tr><td>PEG ratio</td><td>0.14</td><td>—</td><td>1.76</td></tr>
+        <tr><td>CAC payback</td><td>—</td><td>—</td><td>5.3 months</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Recent stock performance</h2>
+
+  <div class="story">
+    <h3>Micron</h3>
+    <ul>
+      <li>Became the latest U.S. company to reach a $1 trillion market cap.</li>
+      <li>Shares up 241% year to date, driven by demand for DRAM, NAND and high-bandwidth memory for AI.</li>
+      <li>Down 28.3% over the last four weeks on Chinese competition and weaker confidence in AI spending (Yahoo Finance).</li>
+      <li>Positive: a strategic agreement with Anthropic to scale AI infrastructure.</li>
+    </ul>
+  </div>
+
+  <div class="story">
+    <h3>SanDisk</h3>
+    <ul>
+      <li>Like Micron, rose sharply over the past year.</li>
+      <li>Down 46.06% over the last four weeks.</li>
+      <li>Chinese chipmaker CXMT went public at a $500 billion market cap and raised $8 billion to expand production. That supply could end the global memory shortage that Micron and SanDisk have benefited from.</li>
+    </ul>
+  </div>
+
+  <div class="story">
+    <h3>Palantir</h3>
+    <ul>
+      <li>Shares down 25% year to date, but up 6.7% over the last four weeks.</li>
+      <li>A strong first quarter brought in $1.6 billion in revenue. Several analysts backed the stock ahead of Q2 earnings on August 3.</li>
+    </ul>
+  </div>
+
+  <p class="note">Sources: company 10-K and 10-Q filings; Yahoo Finance. Student research for learning purposes, not investment advice.</p>
+
+  <footer><a href="index.html">← back</a> · Yehuda Zaretsky</footer>
+
+</main>
+</body>
+</html>

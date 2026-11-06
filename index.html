@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yehuda Zaretsky</title>
+<meta name="description" content="Yehuda Zaretsky: AI safety and AI policy research, projects, work and education.">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #f3f1ea;
+    --text: #1a1a1a;
+    --muted: #63615c;
+    --line: #e2dfd6;
+    --accent: #2f5d50;
+    --accent-soft: #e3ece8;
+    --chip: #ebe8df;
+    --serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141414;
+      --surface: #1c1c1b;
+      --text: #ececec;
+      --muted: #a09d97;
+      --line: #2c2c2a;
+      --accent: #8fc9b5;
+      --accent-soft: #1d2a26;
+      --chip: #252523;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141414;
+    --surface: #1c1c1b;
+    --text: #ececec;
+    --muted: #a09d97;
+    --line: #2c2c2a;
+    --accent: #8fc9b5;
+    --accent-soft: #1d2a26;
+    --chip: #252523;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.65 var(--sans); }
+  main { max-width: 960px; margin: 0 auto; padding-block: 72px 96px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  p { margin: 0 0 12px; }
+  strong { font-weight: 600; }
+
+  /* Header */
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; align-items: start; }
+  h1 { font: 600 44px/1.1 var(--serif); letter-spacing: -0.01em; margin: 0 0 18px; }
+  .intro { font-size: 18px; }
+  .facts { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; font-size: 15px; }
+  .facts dl { margin: 0; }
+  .facts dt { font-weight: 600; font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .facts dt:first-child { margin-top: 0; }
+  .facts dd { margin: 2px 0 0; }
+
+  .current-title { font-weight: 600; font-size: 20px; line-height: 1.3; margin: 56px 0 14px; }
+  .current { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; margin: 0; padding: 0; list-style: none; }
+  .current li { border-left: 3px solid var(--accent); padding: 2px 0 2px 14px; font-size: 16px; }
+
+  /* Tabs: each tab previews what its section contains */
+  .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 64px 0 0; }
+  .tab {
+    all: unset; box-sizing: border-box; cursor: pointer;
+    display: block; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface); color: var(--text); transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .tab:hover { border-color: var(--muted); }
+  .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tab[aria-selected="true"] { background: var(--accent-soft); border-color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
+  .tab-name { display: block; font: 600 19px/1.3 var(--serif); margin-bottom: 6px; }
+  .tab-items { display: block; margin: 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .tab[aria-selected="true"] .tab-items { color: var(--text); }
+
+  /* Panels. Without JavaScript, every section is shown in order. */
+  .panel { padding-top: 8px; }
+  .panel-title { font-weight: 600; font-size: 22px; line-height: 1.3; margin: 56px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--text); }
+  .js .panel-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .js .panel { border-top: 1px solid var(--text); margin-top: 20px; }
+  .js .panel[hidden] { display: none; }
+  .no-js-hide { display: none; }
+  .js .no-js-hide { display: grid; }
+
+  /* Entries */
+  .entry { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+  .entry:last-child { border-bottom: none; }
+  .side { font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .side .kind { color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .featured { display: inline-block; margin-top: 10px; font-weight: 600; font-size: 13px; line-height: 1; color: var(--bg); background: var(--accent); padding: 6px 9px; border-radius: 4px; }
+  .entry h3 { font: 600 22px/1.3 var(--serif); margin: 0 0 4px; }
+  .entry.lead h3 { font-size: 28px; }
+  .org { color: var(--muted); font-size: 15px; margin-bottom: 14px; }
+  .entry ul, .entry ol { margin: 0 0 12px; padding-left: 20px; }
+  .entry li { margin-bottom: 6px; }
+  .sub { font-weight: 600; font-size: 17px; margin: 24px 0 8px; }
+  .note { font-size: 15px; color: var(--muted); }
+  .highlight { font: 17px/1.5 var(--serif); border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 14px 0; }
+  .highlight strong { font-size: 22px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 4px; padding: 0; list-style: none; }
+  .entry .tags li { font-size: 13px; line-height: 1.4; background: var(--chip); border-radius: 4px; padding: 3px 8px; margin: 0; }
+  .proof { font-size: 15px; margin-top: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .stat b { display: block; font: 600 24px/1.2 var(--serif); }
+  .stat span { font-size: 13px; color: var(--muted); }
+  .stats.inline { display: flex; flex-wrap: wrap; gap: 10px 32px; }
+  .stats.inline .stat { background: none; border: none; padding: 0; }
+  .phases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 12px; }
+  .phase { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; font-size: 15px; }
+  .phase b { display: block; font: 600 16px/1.3 var(--serif); margin-bottom: 4px; }
+  code { font: 0.9em var(--mono); background: var(--chip); padding: 1px 5px; border-radius: 3px; }
+
+  footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; }
+
+  @media (max-width: 760px) {
+    main { padding-block: 48px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+    .hero, .entry { grid-template-columns: 1fr; }
+    .hero { gap: 28px; }
+    .entry { gap: 8px; }
+    .current, .phases { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    h1 { font-size: 36px; }
+    .entry.lead h3 { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tab { transition: none; } }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<main>
+
+  <header class="hero">
+    <div>
+      <h1>Yehuda Zaretsky</h1>
+      <p class="intro">I am a senior at South Eugene High School in Eugene, Oregon. My work centers on AI safety research, with additional work in AI policy, hardware and interactive education.</p>
+    </div>
+    <aside class="facts">
+      <dl>
+        <dt>Based in</dt><dd>Eugene, Oregon</dd>
+        <dt>Education</dt><dd>South Eugene High School<br>IB Diploma Candidate · Class of 2027</dd>
+        <dt>Research</dt><dd>Algoverse AI Research<br>Humane Intelligence</dd>
+        <dt>Contact</dt><dd><a href="mailto:yezaretsky@gmail.com">yezaretsky@gmail.com</a><br><a href="https://www.linkedin.com/in/yehuda-zaretsky-28699a3b9">LinkedIn</a></dd>
+      </dl>
+    </aside>
+  </header>
+
+  <div class="current-title">Current Work</div>
+  <ul class="current">
+    <li>Running experiments on whether AI agents seek confirmation before irreversible actions. The paper is expected in December 2026.</li>
+    <li>Co-authoring a chapter of Humane Intelligence's report on Sovereign AI, to be published in December 2026.</li>
+    <li>Expanding <a href="https://beyond-the-ordinary.vercel.app/">Beyond the Ordinary</a>, an interactive introduction to quantum physics.</li>
+    <li>Developing the first prototype of Lev, an ankle-worn health tracker.</li>
+  </ul>
+
+  <div class="tabs no-js-hide" role="tablist" aria-label="Portfolio sections">
+    <button class="tab" role="tab" id="tab-research" aria-controls="research" aria-selected="true">
+      <span class="tab-name">Research</span>
+      <span class="tab-items">AI Safety · Algoverse<br>Sovereign AI · Humane Intelligence</span>
+    </button>
+    <button class="tab" role="tab" id="tab-projects" aria-controls="projects" aria-selected="false" tabindex="-1">
+      <span class="tab-name">Projects</span>
+      <span class="tab-items">Beyond the Ordinary<br>Lev Fitness Wearable</span>
+    </button>
+    <button class="tab" role="tab" id="tab-work" aria-controls="work" aria-selected="false" tabindex="-1">
+      <span class="tab-name">Work</span>
+      <span class="tab-items">Eugene Area Chamber of Commerce<br>Student Analyst, Strategic Wealth Planning</span>
+    </button>
+    <button class="tab" role="tab" id="tab-education" aria-controls="education" aria-selected="false" tabindex="-1">
+      <span class="tab-name">Education</span>
+      <span class="tab-items">South Eugene High School<br>Foundation for Teaching Economics</span>
+    </button>
+  </div>
+
+  <!-- RESEARCH -->
+  <section class="panel" id="research" role="tabpanel" aria-labelledby="tab-research">
+    <h2 class="panel-title">Research</h2>
+
+    <article class="entry lead">
+      <div class="side">
+        <span class="kind">AI Safety</span>Aug 2026 – Present<br>Paper: Dec 2026<br>Merit scholarship recipient
+        <br><span class="featured">Primary focus</span>
+      </div>
+      <div>
+        <h3>Do Tool Labels Make AI Agents Ask Before Irreversible Actions?</h3>
+        <div class="org">AI Safety Researcher · Algoverse AI Research · Four-person team with a mentor</div>
+
+        <p>AI agents increasingly act on people's behalf. They send messages, delete files and transfer money through tools built on the Model Context Protocol (MCP), the emerging standard for connecting AI models to software. MCP's main safety mechanism is a set of labels each tool can declare, such as <code>destructiveHint</code>. If those labels are inaccurate, or if agents ignore them, an agent can take an action the user cannot reverse without ever asking first.</p>
+
+        <div class="stats">
+          <div class="stat"><b>3,600</b><span>experimental episodes</span></div>
+          <div class="stat"><b>14</b><span>conditions</span></div>
+          <div class="stat"><b>1,497</b><span>MCP tools sampled</span></div>
+          <div class="stat"><b>200</b><span>tools labeled across 72 servers</span></div>
+        </div>
+
+        <div class="sub">Research questions</div>
+        <ol>
+          <li>Does a label stating that an action <strong>cannot be undone</strong> make an agent ask the user for confirmation first?</li>
+          <li>Does the protocol's existing <code>destructiveHint</code> label have the same effect?</li>
+          <li>Does a misleading "reversible" label make the agent skip confirmation?</li>
+          <li>Does any effect hold at low reasoning effort and across multi-task sessions?</li>
+        </ol>
+
+        <div class="sub">Approach</div>
+        <div class="phases">
+          <div class="phase"><b>1 · Audit labels in the wild</b>Sample real tools from the public MCP registry, determine whether each action can actually be undone, and measure how well the tools' declared labels match.</div>
+          <div class="phase"><b>2 · Controlled experiments</b>Give an agent (gpt-oss-20b) tasks in a simulated tool sandbox (ToolEmu), vary the labels and reasoning effort, and record whether it asks before acting.</div>
+        </div>
+
+        <div class="sub">My contributions</div>
+        <ul>
+          <li><strong>Core hypothesis:</strong> agents take safety shortcuts when their reasoning is under pressure.</li>
+          <li><strong>Dataset:</strong> sampled 1,497 real tools from the public MCP registry, then drew 200 tools from 72 servers using fixed random seeds so the sample can be reproduced.</li>
+          <li><strong>Reversibility rubric:</strong> three classes (undoable with the same tools, undoable by a person elsewhere, not undoable) and ten rules for edge cases, including time-limited undo, spent funds or quota, and tools that bundle several actions.</li>
+          <li><strong>Annotation and agreement pipeline:</strong> organized blind double-labeling of 200 tools, and wrote the analysis that computes Cohen's κ per block, builds confusion matrices and generates adjudication sheets.</li>
+          <li><strong>Main audit table:</strong> measured how well MCP's own safety labels match whether an action can actually be undone, with Wilson confidence intervals and a 2,000-draw bootstrap that resamples servers.</li>
+          <li><strong>Experimental tasks:</strong> wrote 95 of the 230 agent tasks, plus a pre-registered rephrasing procedure whose rules were fixed in code before any results existed.</li>
+          <li><strong>Methods section:</strong> drafted in LaTeX.</li>
+        </ul>
+        <p class="note">All code goes through pull-request review and must pass linting and unit tests before it is merged.</p>
+
+        <div class="sub">Skills</div>
+        <ul class="tags">
+          <li>Python</li><li>pandas</li><li>pydantic</li><li>pytest</li><li>Git · GitHub PRs</li>
+          <li>Model Context Protocol</li><li>LLM agent evaluation</li><li>ToolEmu</li>
+          <li>annotation rubric design</li><li>Cohen's κ</li><li>bootstrap &amp; Wilson intervals</li>
+          <li>pre-registration</li><li>LaTeX</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="side"><span class="kind">AI Policy</span>Aug 2026 – Present<br>Publication: Dec 2026</div>
+      <div>
+        <h3>The Limits of Technical Sovereignty</h3>
+        <div class="org">Researcher · Humane Intelligence, Sovereign AI Project</div>
+        <p><strong>Selected as one of 12 researchers</strong> to research and co-author Humane Intelligence's report on the spectrum of Sovereign AI.</p>
+        <p>Governments worldwide are pursuing "sovereign AI," meaning AI capability under national control. My chapter examines why that control is difficult to achieve. It maps the global dependencies behind every AI system: chips, compute, cloud infrastructure, data, talent, capital and energy. It concludes that no single country can control the full stack.</p>
+        <p>The report argues that sovereignty should be measured by whether people and institutions can understand, evaluate and hold AI accountable, not by ownership of infrastructure alone. It draws on cases from the European Union, India, the African Union, Brazil, South Korea and Japan.</p>
+        <p class="note">My chapter draws on primary policy documents and stakeholder interviews.</p>
+        <ul class="tags">
+          <li>AI policy</li><li>AI supply chains</li><li>primary-source research</li><li>stakeholder interviews</li><li>policy writing</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects">
+    <h2 class="panel-title">Projects</h2>
+
+    <article class="entry">
+      <div class="side"><span class="kind">Education</span>2026<br>Live</div>
+      <div>
+        <h3>Beyond the Ordinary</h3>
+        <div class="org">Creator · Interactive quantum physics</div>
+        <p class="highlight">Physics is the subject I enjoy most. I built Beyond the Ordinary so that other people could experience the same sense of wonder, without needing a physics background to get there.</p>
+        <p>Quantum physics is often presented as equations that only specialists can follow. However, the ideas themselves (a particle that takes two paths at once, two particles that share one story) are some of the most remarkable in science. I wanted to build something that lets anyone explore them firsthand.</p>
+        <p>Beyond the Ordinary introduces quantum physics through five interactive rooms. Each room is organized around a single question:</p>
+        <ul>
+          <li><em>One particle, two paths</em>: the double-slit experiment</li>
+          <li><em>Two answers at once</em>: superposition</li>
+          <li><em>Two particles, one story</em>: entanglement</li>
+          <li><em>Passing through the wall</em>: quantum tunneling</li>
+          <li><em>Computing with waves</em>: quantum computing</li>
+        </ul>
+        <p>Every room follows the same sequence: <strong>predict, experiment, explain, go deeper</strong>. In the double-slit room, visitors sketch where they expect photons to land before the result is revealed. They then adjust the slit separation and screen distance and watch the interference pattern form. The underlying equations are available for anyone who wants to go further.</p>
+        <p>This structure reflects how I learned to love physics: by guessing first, being surprised, and then understanding why.</p>
+        <ul class="tags">
+          <li>React</li><li>Vite</li><li>canvas simulation</li><li>physics modeling</li><li>interactive learning design</li><li>accessibility</li>
+        </ul>
+        <p class="proof"><a href="https://beyond-the-ordinary.vercel.app/">Explore Beyond the Ordinary →</a></p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="side"><span class="kind">Hardware</span>2026 – Present<br>Prototype in development</div>
+      <div>
+        <h3>Lev Fitness Wearable</h3>
+        <div class="org">Founder</div>
+        <p class="highlight">I started Lev because I believe health tracking should be accessible to anyone who wants it, not only to people willing to wear a visible, expensive device on their wrist.</p>
+        <p>As a competitive tennis player, I have spent years using data to improve my health and performance. However, many people never adopt wearables at all. In one survey, 29% of consumers said current trackers simply are not attractive enough to wear, and wrist-based devices estimate movement indirectly from arm swing. Lev is designed to remove those barriers: it is invisible, comfortable all day, and sold as a one-time $129 purchase with optional advanced analytics.</p>
+        <p>Lev is a health tracker designed to go unnoticed in daily use. A small pod (18 × 13 × 7.5 mm) sits on a thin ankle band in the natural hollow behind the ankle bone. It is hidden under any sock, and the position also improves the data: the pod rests over an artery that gives a strong pulse signal, at the foot, where gait actually occurs.</p>
+        <div class="stats inline">
+          <div class="stat"><b>12</b><span>metrics from 2 sensors</span></div>
+          <div class="stat"><b>5–7 days</b><span>per charge</span></div>
+          <div class="stat"><b>1.5% vs 31.2%</b><span>step error, ankle vs wrist*</span></div>
+        </div>
+        <ul>
+          <li>Tracks heart rate, heart-rate variability, blood oxygen, respiratory rate, sleep stages, steps, cadence, stride symmetry and ground contact time.</li>
+          <li>Solo founder. I designed every component from first principles, from the sensor stack to a band tuned for all-day comfort.</li>
+          <li>Roadmap: working prototype, then three to five test units, then a pilot with 10–15 student athletes.</li>
+        </ul>
+        <p class="note">*Average step-count error reported in peer-reviewed research comparing wrist-worn and ankle-worn devices.</p>
+        <ul class="tags">
+          <li>hardware design</li><li>PPG &amp; IMU sensors</li><li>rigid-flex PCB</li><li>motion algorithms</li><li>market sizing</li>
+        </ul>
+        <p class="proof"><a href="lev-fitness.pdf">View the product overview (PDF) →</a></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- WORK -->
+  <section class="panel" id="work" role="tabpanel" aria-labelledby="tab-work">
+    <h2 class="panel-title">Work</h2>
+
+    <article class="entry">
+      <div class="side"><span class="kind">Economic Development</span>Feb 2025 – Present<br>Eugene, Oregon</div>
+      <div>
+        <h3>Eugene Area Chamber of Commerce</h3>
+        <div class="sub">Intern · Jun – Sep 2026</div>
+        <p>Researched commercial opportunities, local economic conditions and business-development trends to support potential downtown expansion. My market and economic analysis informed strategies for downtown development and local business support.</p>
+        <div class="sub">Volunteer · Feb 2025 – Present</div>
+        <p>I research local business activity in support of economic development and downtown revitalization. I also attend meetings and councils with small business owners and local policy leaders, which gives me firsthand insight into the community's economic priorities.</p>
+        <ul class="tags">
+          <li>market research</li><li>economic analysis</li><li>local policy</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="side"><span class="kind">Finance</span>Jun – Sep 2026<br>Remote</div>
+      <div>
+        <h3>Student Analyst</h3>
+        <div class="org">Strategic Wealth Planning · AI infrastructure equity research</div>
+        <p>I analyzed three companies at different layers of the AI stack: Micron and SanDisk (memory and storage chips) and Palantir (AI software). I built three-year comparisons of revenue, profitability, debt and valuation from their 10-K and 10-Q filings, and benchmarked each company against a named competitor: SK Hynix, Snowflake and Leidos.</p>
+        <p class="highlight"><strong>95%</strong> of the world's DRAM, the memory AI runs on, comes from three companies: Samsung, SK Hynix and Micron.</p>
+        <ul class="tags">
+          <li>financial statement analysis</li><li>10-K / 10-Q</li><li>P/E · EV/EBITDA · PEG</li><li>competitive analysis</li><li>Excel</li>
+        </ul>
+        <p class="proof"><a href="equity-research.html">Read the research brief →</a></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="panel" id="education" role="tabpanel" aria-labelledby="tab-education">
+    <h2 class="panel-title">Education</h2>
+
+    <article class="entry">
+      <div class="side"><span class="kind">High School</span>Class of 2027<br>Eugene, Oregon</div>
+      <div>
+        <h3>South Eugene High School</h3>
+        <div class="org">International Baccalaureate Diploma Candidate</div>
+        <div class="stats inline">
+          <div class="stat"><b>3.89</b><span>GPA (4.00 scale)</span></div>
+          <div class="stat"><b>34</b><span>ACT</span></div>
+        </div>
+        <p class="note">Relevant coursework: IB Physics HL, IB Economics SL, IB Mathematics: Analysis &amp; Approaches SL, AP Statistics</p>
+
+        <div class="sub">Speech &amp; Debate · 2024 – Present</div>
+        <ul>
+          <li><strong>Two-time District Champion</strong>, Parliamentary Debate</li>
+          <li><strong>NSDA National Qualifier</strong>, Policy Debate</li>
+          <li>Competitor on the National Parliamentary Debate League circuit</li>
+        </ul>
+
+        <div class="sub">Varsity Tennis · 2023 – Present</div>
+        <ul>
+          <li><strong>Team Captain</strong></li>
+          <li><strong>District Champion</strong> and <strong>three-time State Qualifier</strong></li>
+          <li>Ranked as high as a <strong>top-five Oregon recruit</strong> in the Class of 2027</li>
+        </ul>
+
+        <div class="sub">FBLA · Co-Founder &amp; Founding President · Nov 2025 – Present</div>
+        <ul>
+          <li>Co-founded and lead the school's Future Business Leaders of America chapter, connecting students with opportunities in business and finance</li>
+          <li>Lead a pro bono community project helping five local small businesses improve their websites, social media and online presence</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="side"><span class="kind">Summer Program</span>Summer 2025<br>University of Michigan</div>
+      <div>
+        <h3>Foundation for Teaching Economics</h3>
+        <div class="org">Economics for Leaders Program</div>
+        <p>Selected for an immersive economics and leadership program that brings together high school students from across the United States.</p>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <span>Yehuda Zaretsky · Eugene, Oregon</span>
+    <span><a href="mailto:yezaretsky@gmail.com">yezaretsky@gmail.com</a> · <a href="https://www.linkedin.com/in/yehuda-zaretsky-28699a3b9">LinkedIn</a></span>
+  </footer>
+
+</main>
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+  function select(i, focus, updateHash) {
+    tabs.forEach(function (t, j) {
+      var on = i === j;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[j].hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+    if (updateHash && history.replaceState) history.replaceState(null, '', '#' + panels[i].id);
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(i, false, true); });
+    t.addEventListener('keydown', function (e) {
+      var n = tabs.length, k = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') k = (i + 1) % n;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') k = (i - 1 + n) % n;
+      else if (e.key === 'Home') k = 0;
+      else if (e.key === 'End') k = n - 1;
+      if (k !== null) { e.preventDefault(); select(k, true, true); }
+    });
+  });
+
+  function fromHash() {
+    var start = 0;
+    panels.forEach(function (p, i) { if (location.hash === '#' + p.id) start = i; });
+    select(start, false, false);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>
